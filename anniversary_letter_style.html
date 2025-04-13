@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>💌 จดหมายครบรอบจากเค้า 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe6f0, #ffe0eb);
+      font-family: 'Itim', cursive;
+      text-align: center;
+      color: #d6336c;
+      overflow-x: hidden;
+    }
+
+    .page {
+      display: none;
+      padding: 40px 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .active {
+      display: block;
+    }
+
+    h1, h2, p {
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    button {
+      background-color: #ff85a1;
+      color: white;
+      font-size: 1.1em;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-family: 'Itim', cursive;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff5f91;
+    }
+
+    input {
+      font-size: 1.2em;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ff85a1;
+      text-align: center;
+      width: 60%;
+      max-width: 300px;
+    }
+
+    .message-box {
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 20px;
+      padding: 20px;
+      width: 80%;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(255, 182, 193, 0.4);
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    audio {
+      margin-top: 30px;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      transform: rotate(45deg);
+      animation: float 8s infinite ease-in-out;
+      opacity: 0.7;
+      filter: blur(0.5px);
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- หน้า 1 -->
+  <div id="page1" class="page active">
+    <h1>เธอๆ 💌</h1>
+    <p>เค้ามีอะไรจะบอกแหละ... อยากให้เปิดดูหน่อยน้าา 💖</p>
+    <button onclick="goToPage(2)">เปิดจดหมาย</button>
+  </div>
+
+  <!-- หน้า 2 -->
+  <div id="page2" class="page">
+    <h2>ตอบคำถามนี้ให้เค้าหน่อยน้า 🥺</h2>
+    <p>วันครบรอบของเราคือวันอะไร 💌</p>
+    <input type="text" id="answer" placeholder="ตัวอย่าง: 01/01/2025">
+    <br><br>
+    <button onclick="checkAnswer()">ส่งคำตอบ</button>
+  </div>
+
+  <!-- หน้า 3 -->
+  <div id="page3" class="page">
+    <h1>สุขสันต์วันครบรอบค้าบ 💖</h1>
+    <h2>อยู่ด้วยกันมา 2 เดือนแล้วนะ!</h2>
+    <div class="message-box">
+      <p>ขอบคุณที่อยู่ด้วยกันมาตลอดนะ<br>
+        เค้ารู้สึกว่าโชคดีมากๆ ที่มีเธออยู่ข้างๆ<br>
+        อยู่ด้วยกันแบบนี้ไปเรื่อยๆ นะครับ<br>
+        รักมากจริงๆ นะ คนเก่งของเค้า 💗</p>
+    </div>
+    <audio controls>
+      <source src="just-for-you.mp3" type="audio/mp3">
+      เบราว์เซอร์คุณไม่รองรับเสียงนะครับ
+    </audio>
+  </div>
+
+  <script>
+    function goToPage(n) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + n).classList.add('active');
+    }
+
+    function checkAnswer() {
+      const correctAnswer = "16/02/2025";
+      const userAnswer = document.getElementById("answer").value.trim();
+      if (userAnswer === correctAnswer) {
+        goToPage(3);
+        createHearts();
+      } else {
+        alert("ยังไม่ถูกน้า ลองใหม่อีกทีนะ 💗");
+      }
+    }
+
+    function createHearts() {
+      const heartCount = 50;
+      const colors = ['#ffb6c1', '#ffc0cb', '#ff69b4', '#ff85a1', '#ffa6c9'];
+      for (let i = 0; i < heartCount; i++) {
+        let heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        heart.style.opacity = Math.random() * 0.5 + 0.5;
+        document.body.appendChild(heart);
+      }
+    }
+  </script>
+</body>
+</html>
